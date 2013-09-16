@@ -1,4 +1,4 @@
 ArduPower
 =========
 
-Arduino-based project telnet deiven power srtip
+Arduino-based project telnet driven power srtip
