@@ -1,0 +1,12 @@
+1 x Arduino Uno
+1 x Ethernet shield
+1 x uln2003 (the circuit in photos use two uln2064b)
+6 x red led
+1 x green led
+6 x relays 12 volt 10 ampere
+6 x resistences 560 Ω 1/4 Watt
+7 x circuit board terminals for two wires
+1 x jumper
+1 x capacitor 1000 µF 25 volt
+6 x capacitor 0.047 µF 1000V
+1 x 12 volt power supply
