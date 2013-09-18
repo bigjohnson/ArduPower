@@ -6,6 +6,10 @@ Arduino-based project telnet driven power srtip
 Arduower 
 http://www.panu.it/ardupower/
 
+This project use main line power, assure that you take all precautions for preserve human ealth during project making, and when you use it.
+Sized the components so that there is no overheating that can develop fire.
+The author assumes no liability for damage to persons, things, animals and aircraft that were damaged by the use of electronic circuitry and computer program described below. 
+
 Released under GPL licence V3 see http://www.gnu.org/licenses/gpl.html and file gpl.txt
 
 Copyryght Alberto Panu 2012
