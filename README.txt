@@ -1,7 +1,7 @@
 ArduPower
 =========
 
-Arduino-based project telnet driven power srtip
+Arduino UNO based project telnet driven power srtip
 
 Arduower 
 http://www.panu.it/ardupower/
