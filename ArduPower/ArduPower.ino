@@ -57,7 +57,7 @@ I am an entirely self-taught C programmer; if you
   don't like my code, too bad ;-). 
 
 V0.1 
-- First release, compatible with Arduino 0.22
+- First release, compatible with Arduino 1.0.6
   
 V0.2 changes:
 - Compatible with Arduino 1
