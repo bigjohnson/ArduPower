@@ -26,8 +26,8 @@ Tested with Arduino 1.6.9
   5) Wait a minute.
   6) Power off the Arduino.
   7) Disconnect the defParamSwitch from ground.
-  8) Pover on the Arduino and connect the ethernet cable, make sure that link led is on.
-  9) Telnet to the default Ethernet address 192.168.1.2, you may need some client tcp setup.
+  8) Power on the Arduino and connect the ethernet cable, make sure that link led is on.
+  9) Telnet to the default Ethernet addres 192.168.1.2, you may need some client tcp setup.
  10) On some Telnet clients, hit return to wake up connection.
  11) Enter the default password password.
  12) When connected, type ? <cr> for help.
