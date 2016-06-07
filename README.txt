@@ -1,3 +1,6 @@
+Note: There was a big bug that prevent command interpretation, on 7 june 2016 I released a new version that work fine.
+If you had some problem now you can retry.
+
 ArduPower
 =========
 
