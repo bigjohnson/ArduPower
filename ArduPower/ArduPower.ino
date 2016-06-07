@@ -96,7 +96,6 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // Mac addres variable
 // ---------- CHANGE IT WITH YOUR CARD MAC ADDRESS --------
 
-/*
 byte mac[] = { 0x90, 0xA2, 0xDA, 0x00, 0x36, 0xE8 };
 
 // Default values for tcp/ip parameters
@@ -104,14 +103,6 @@ byte mac[] = { 0x90, 0xA2, 0xDA, 0x00, 0x36, 0xE8 };
 byte DefaultIp[] = { 192, 168, 1, 2 };
 byte DefaultSubnet[] = { 255, 255, 255, 0 };
 byte DefaultGateway[] = { 192, 168, 1, 1 };
-*/
-
-// non mettere
-byte mac[] = { 0xc4, 0x2c, 0x03, 0x32, 0x2b, 0x80 };
-
-byte DefaultIp[] = { 10, 63, 0, 73 };
-byte DefaultSubnet[] = { 255, 255, 254, 0 };
-byte DefaultGateway[] = { 10, 63, 0, 1 };
 
 #define defaultpassword "password"
 #define defaultpasswordlenght 8
