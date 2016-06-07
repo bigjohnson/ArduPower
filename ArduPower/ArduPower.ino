@@ -19,22 +19,21 @@
     Released under GPL licence V3 see http://www.gnu.org/licenses/gpl.html and file gpl.txt
 
  Quick Start Instructions:
-  1) Copy the MyEthernet library in the Arduino's library folder.
-  2) Compile and upload sketch.
-  3) Power of the Arduino.
-  4) Connect the defParamSwitch pin (search on code the pin number) to ground (0V).
-  5) Power on the Arduino.
-  6) Wait a minute.
-  7) Power off the Arduino.
-  8) Disconnect the defParamSwitch from ground.
-  9) Pover on the Arduino and connect the ethernet cable, make sure that link led is on.
- 10) Telnet to the default Ethernet address 192.168.1.2, you may need some client tcp setup.
- 11) On some Telnet clients, hit return to wake up connection.
- 12) Enter the default password password.
- 13) When connected, type ? <cr> for help.
- 14) Try a simple command such as 'show'.
- 15) If you need a different tcp address change it with command tcpsetup.
- 16) Reconnect to ArduPower with new tcp address.
+  1) Compile and upload sketch.
+  2) Power of the Arduino.
+  3) Connect the defParamSwitch pin (search on code the pin number) to ground (0V).
+  4) Power on the Arduino.
+  5) Wait a minute.
+  6) Power off the Arduino.
+  7) Disconnect the defParamSwitch from ground.
+  8) Pover on the Arduino and connect the ethernet cable, make sure that link led is on.
+  9) Telnet to the default Ethernet address 192.168.1.2, you may need some client tcp setup.
+ 10) On some Telnet clients, hit return to wake up connection.
+ 11) Enter the default password password.
+ 12) When connected, type ? <cr> for help.
+ 13) Try a simple command such as 'show'.
+ 14) If you need a different tcp address change it with command tcpsetup.
+ 15) Reconnect to ArduPower with new tcp address.
  16) Change the password with command newpw.
  
      If you lose password or ip you could reset to the default password "password" and ip address "192.168.1.2"
@@ -44,8 +43,6 @@
  
      WARNNG the first time you load the sketch on a new Arduino board reset to default 
      password and IP shorting defParamSwitch pin to ground!
-
-     ------->>>>> Use MyEthernet library for client socket number! <<<<<-------
 
  =====================================================================================
 
@@ -64,8 +61,10 @@ V0.2 changes:
 - Put message strings in program memory
 - Insert telnet commands for hide password typing
 - Removed some bugs
- 
 
+v0.3 changes:
+- Remove some telnet commands password related bug
+- Removed MyEthernet library, used new Ethernet fuctions
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
 INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -77,22 +76,42 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-#define DEBUG
+// No Debug
+#define DEBUG 0
 
-// Ethernet parameters
-#include <SPI.h>
-#include <MyEthernet.h>
+// All debug
+//#define DEBUG 2
+
+//YOU MUST DEFINE DEBUG if you don't wont debug define it at 0
+
+//#include <Dhcp.h>
+//#include <Dns.h>
+#include <Ethernet.h>
+//#include <EthernetClient.h>
+#include <EthernetServer.h>
+//#include <EthernetUdp.h>
+
 #include <EEPROM.h>
 
 // Mac addres variable
 // ---------- CHANGE IT WITH YOUR CARD MAC ADDRESS --------
+
+/*
 byte mac[] = { 0x90, 0xA2, 0xDA, 0x00, 0x36, 0xE8 };
 
 // Default values for tcp/ip parameters
 
-byte DefaultIp[] ={ 192, 168, 1, 2 };
+byte DefaultIp[] = { 192, 168, 1, 2 };
 byte DefaultSubnet[] = { 255, 255, 255, 0 };
 byte DefaultGateway[] = { 192, 168, 1, 1 };
+*/
+
+// non mettere
+byte mac[] = { 0xc4, 0x2c, 0x03, 0x32, 0x2b, 0x80 };
+
+byte DefaultIp[] = { 10, 63, 0, 73 };
+byte DefaultSubnet[] = { 255, 255, 254, 0 };
+byte DefaultGateway[] = { 10, 63, 0, 1 };
 
 #define defaultpassword "password"
 #define defaultpasswordlenght 8
@@ -130,7 +149,7 @@ int charsReceived = 0;
 boolean logged = false;
 
 //we'll use a flag separate from client.connected so we can recognize when a new connection has been created
-boolean connectFlag = 0; 
+boolean connectFlag = false; 
 
 // Timeout variable
 unsigned long timeOfLastActivity; //time in milliseconds of last activity
@@ -140,7 +159,7 @@ unsigned long allowedConnectTime = 300000; //five minutes
 unsigned long allowedPasswordTime = 30000; 
 
 // frduino pin usage
-#define defParamSwitch 9 // the input pin that resete password and tc parameters when pu to low
+#define defParamSwitch 9 // the input pin that reset the password and the parameters when put it to low
 #define statusLed 8   // the output led pin that become high when tcp/ip telnet server is ready
 #define firstpin 2    // the first io pin
 #define lastpin 7     // the last io pin
@@ -179,11 +198,16 @@ byte newpos;
 #define he_16 "  ipstatus          -get   the tcp/ip parameters\r\n"
 #define he_17 "  exit              -close connection\r\n"
 #define he_18 "  ? or h            -print this help message\r\n\r\n"
-#define he_19 "WARNING: ALL COMMANDS ARE EXECUTED IMMEDIATELY, WITHOUT A CONFIRMATION REQUEST!"
+#define he_19 "Shell timeout is five Arduno's minutes\r\n\r\n"
+#define he_20 "WARNING: ALL COMMANDS ARE EXECUTED IMMEDIATELY, WITHOUT A CONFIRMATION REQUEST!"
 
 // =========================== setup: arduino's setup function >>
 void setup()
 {
+  
+  #if DEBUG > 0
+    Serial.begin(115200);
+  #endif
   
   // pins 10-13 are used by the Ethernet Shield
   
@@ -237,14 +261,40 @@ void loop()
   // look to see if a new connection is created,
   // print welcome message, set connected flag
   if (server.available() && !connectFlag) {
-    connectFlag = 1;
+    connectFlag = true;
     client = server.available();
-    clientID = client.getsocketnumber();
-    client.println(F("\nArdupower Ethernet power switch server."));
+    clientID = client.getSocketNumber();
+            
+      client.println(F("\nArdupower Ethernet power switch server."));
+
+      client.write(255);
+      client.write(251);
+      client.write(1);
+      
+      client.write(255);
+      client.write(251);
+      client.write(3);
+      
+      client.write(255);
+      client.write(253);
+      client.write(3);
+      
+      unsigned long time = millis();
+      while ( millis( ) < (time + 500)) {
+        char available = client.available() ;
+        if ( available ) {
+          for (int fai= 1; fai <= available; fai++ ) {
+          char pippo = client.read();
+          }
+          //char away = client.read();
+        }
+      }    
+          
+    //client.println(F("\nArdupower Ethernet power switch server."));
     if ( passwordConsistence() ) {
       client.println(F("Please enter password."));
       //stop local client telnet echo
-      client.write(255);
+/*      client.write(255);
       client.write(251);
       client.write(1);
       
@@ -261,6 +311,7 @@ void loop()
       client.write(3);
       
       client.flush();
+      */
       
     } else {
      logged = true; 
@@ -268,10 +319,11 @@ void loop()
     printPrompt();
   } else if (server.available()) {
     EthernetClient badclient = server.available();
-    byte tempid = badclient.getsocketnumber();
+    byte tempid = badclient.getSocketNumber();
     if ( tempid != clientID) {
       badclient.println(F("\nArdupower Ethernet power switch server."));
       badclient.println(F("Sorry, only one client at time allowed!"));
+      badclient.flush();
       badclient.stop();
     }
   }
@@ -283,9 +335,10 @@ void loop()
   if(connectFlag) checkConnectionTimeout();
 
   if (connectFlag && !client.connected()) {
+    client.flush();
     client.stop();
     logged = false;
-    connectFlag = 0;
+    connectFlag = false;
   }
 
 }
@@ -355,8 +408,8 @@ void printPrompt()
   timeOfLastActivity = millis();
   client.flush();
   charsReceived = 0; //count of characters received
-  for (byte count=0; count <= textBuffSize; count++) {
-     textBuff[count]=0;
+  for (byte count=0; count < textBuffSize; count++) {
+     textBuff[count]='\0';
   }
   client.print("\n>");
 }
@@ -379,9 +432,10 @@ void checkConnectionTimeout()
   if(millis() - timeOfLastActivity > myallowedConnectTime) {
     client.println();
     client.println(F("Timeout disconnect."));
+    client.flush();
     client.stop();
     logged = false;
-    connectFlag = 0;
+    connectFlag = false;
   }
 }
 // =========================== end checkConnectionTimeout <<
@@ -397,17 +451,38 @@ void getReceivedText()
   charsWaiting = client.available();
   do {
     c = client.read();
+    
+    #if DEBUG >= 2
+      Serial.println("getReceivedText");
+      Serial.println(c);
+    #endif
+    
+    if (c != 0 ) {
     if (logged) {
       client.write(c);
     } else {
       client.print(F("*"));
     }
-    textBuff[charsReceived] = c;
-    charsReceived++;
+    
+      textBuff[charsReceived] = c;
+      charsReceived++;
+    }
+   #if DEBUG >= 2
+      Serial.println("charsReceived");
+      Serial.println(charsReceived);
+      Serial.print(textBuff[charsReceived]);
+      Serial.println();
+      Serial.println(textBuff);
+   #endif
+    
+    
     charsWaiting--;
+    
+
   }
   while(charsReceived <= textBuffSize && c != 0x0d && charsWaiting > 0);
 
+    
   //if CR found go look at received text and execute command
   if(c == 0x0d) {
     // if the client is logged in show the prompt an wait for commands,
@@ -466,6 +541,11 @@ void parseReceivedText()
 {
   // look at first character and decide what to do
   //client.println("");
+  #if DEBUG >= 2
+    Serial.println("parseReceivedText");     
+    Serial.println(textBuff);
+  #endif
+   
   switch (textBuff[0]) {
     /*case 'a' : doAnalogCommand();	  break;
     case 'd' : doDigitalCommand();	 break;
@@ -743,9 +823,10 @@ void checkCloseConnection()
 void closeConnection()
 {
   client.println(F("\nBye.\n"));
+  client.flush();
   client.stop();
   logged = false;
-  connectFlag = 0;
+  connectFlag = false;
 }
 //=========================== end closeConnection <<
 
@@ -931,7 +1012,7 @@ byte readOctet(byte position, char separator) {
 void printHelpMessage()
 {
  
- client.println(F(he_00 he_01 he_02 he_03 he_04 he_05 he_06 he_07 he_08 he_09 he_10 he_11 he_12 he_13 he_14 he_15 he_16 he_17 he_18 he_19));   
+ client.println(F(he_00 he_01 he_02 he_03 he_04 he_05 he_06 he_07 he_08 he_09 he_10 he_11 he_12 he_13 he_14 he_15 he_16 he_17 he_18 he_19 he_20));   
    /*
    int j = 0;
      do {
