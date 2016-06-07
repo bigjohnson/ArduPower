@@ -448,7 +448,7 @@ void getReceivedText()
       Serial.println(c);
     #endif
     
-    if (c != 0 ) {
+    if (c != 0 && c != 0xa ) {
     if (logged) {
       client.write(c);
     } else {
