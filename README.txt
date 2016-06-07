@@ -16,26 +16,24 @@ Copyryght Alberto Panu 2012
 
 Copy MyEthernet library to Arduino's library folder, then compile the sketch!
 
-The MyEthernet library is from arduino 1.0.1 code base.
-
+Tested with Arduino 1.6.9
 
  Quick Start Instructions:
-  1) Copy the MyEthernet library in the Arduino's library folder.
-  2) Compile and upload sketch.
-  3) Power of the Arduino.
-  4) Connect the defParamSwitch pin (search on code the pin number) to ground (0V).
-  5) Power on the Arduino.
-  6) Wait a minute.
-  7) Power off the Arduino.
-  8) Disconnect the defParamSwitch from ground.
-  9) Pover on the Arduino and connect the ethernet cable, make sure that link led is on.
- 10) Telnet to the default Ethernet address 192.168.1.2, you may need some client tcp setup.
- 11) On some Telnet clients, hit return to wake up connection.
- 12) Enter the default password password.
- 13) When connected, type ? <cr> for help.
- 14) Try a simple command such as 'show'.
- 15) If you need a different tcp address change it with command tcpsetup.
- 16) Reconnect to ArduPower with new tcp address.
+  1) Compile and upload sketch.
+  2) Power of the Arduino.
+  3) Connect the defParamSwitch pin (search on code the pin number) to ground (0V).
+  4) Power on the Arduino.
+  5) Wait a minute.
+  6) Power off the Arduino.
+  7) Disconnect the defParamSwitch from ground.
+  8) Pover on the Arduino and connect the ethernet cable, make sure that link led is on.
+  9) Telnet to the default Ethernet address 192.168.1.2, you may need some client tcp setup.
+ 10) On some Telnet clients, hit return to wake up connection.
+ 11) Enter the default password password.
+ 12) When connected, type ? <cr> for help.
+ 13) Try a simple command such as 'show'.
+ 14) If you need a different tcp address change it with command tcpsetup.
+ 15) Reconnect to ArduPower with new tcp address.
  16) Change the password with command newpw.
  
      If you lose password or ip you could reset to the default password "password" and ip address "192.168.1.2"
