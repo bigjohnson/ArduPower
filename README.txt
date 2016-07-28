@@ -17,8 +17,6 @@ Released under GPL licence V3 see http://www.gnu.org/licenses/gpl.html and file 
 
 Copyryght Alberto Panu 2012
 
-Copy MyEthernet library to Arduino's library folder, then compile the sketch!
-
 Tested with Arduino 1.6.9
 
  Quick Start Instructions:
@@ -46,8 +44,6 @@ Tested with Arduino 1.6.9
  
      WARNNG the first time you load the sketch on a new Arduino board reset to default 
      password and IP shorting defParamSwitch pin to ground!
-
-     ------->>>>> Use MyEthernet library for client socket number! <<<<<-------
 
  =====================================================================================
      
