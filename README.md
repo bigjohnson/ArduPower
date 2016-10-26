@@ -61,12 +61,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 ![Demo](https://github.com/bigjohnson/GitHubAssets/blob/master/ArduPower/5.jpg?raw=true)
 
-![Demo](https://github.com/bigjohnson/GitHubAssets/blob/master/ArduPower/s1.jpg?raw=true)
+![Demo](https://github.com/bigjohnson/GitHubAssets/blob/master/ArduPower/s1.png?raw=true)
 
-![Demo](https://github.com/bigjohnson/GitHubAssets/blob/master/ArduPower/s2.jpg?raw=true)
+![Demo](https://github.com/bigjohnson/GitHubAssets/blob/master/ArduPower/s2.png?raw=true)
 
-![Demo](https://github.com/bigjohnson/GitHubAssets/blob/master/ArduPower/s3.jpg?raw=true)
+![Demo](https://github.com/bigjohnson/GitHubAssets/blob/master/ArduPower/s3.png?raw=true)
 
-![Demo](https://github.com/bigjohnson/GitHubAssets/blob/master/ArduPower/s4.jpg?raw=true)
+![Demo](https://github.com/bigjohnson/GitHubAssets/blob/master/ArduPower/s4.png?raw=true)
 
-![Demo](https://github.com/bigjohnson/GitHubAssets/blob/master/ArduPower/s5.jpg?raw=true)
+![Demo](https://github.com/bigjohnson/GitHubAssets/blob/master/ArduPower/s5.png?raw=true)
