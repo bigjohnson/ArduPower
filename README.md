@@ -31,7 +31,7 @@ Tested with Arduino 1.6.9
   9. Telnet to the default Ethernet addres 192.168.1.2, you may need some client tcp setup.
  10. On some Telnet clients, hit return to wake up connection.
  11. Enter the default password password.
- 12. When connected, type ? <cr> for help.
+ 12. When connected, type ? \<cr\> for help.
  13. Try a simple command such as 'show'.
  14. If you need a different tcp address change it with command tcpsetup.
  15. Reconnect to ArduPower with new tcp address.
