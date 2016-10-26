@@ -29,13 +29,13 @@ Tested with Arduino 1.6.9
   7. Disconnect the defParamSwitch from ground.
   8. Power on the Arduino and connect the ethernet cable, make sure that link led is on.
   9. Telnet to the default Ethernet addres 192.168.1.2, you may need some client tcp setup.
- 10. On some Telnet clients, hit return to wake up connection.
- 11. Enter the default password password.
- 12. When connected, type ? \<cr\> for help.
- 13. Try a simple command such as 'show'.
- 14. If you need a different tcp address change it with command tcpsetup.
- 15. Reconnect to ArduPower with new tcp address.
- 16. Change the password with command newpw.
+  10. On some Telnet clients, hit return to wake up connection.
+  11. Enter the default password password.
+  12. When connected, type ? \<cr\> for help.
+  13. Try a simple command such as 'show'.
+  14. If you need a different tcp address change it with command tcpsetup.
+  15. Reconnect to ArduPower with new tcp address.
+  16. Change the password with command newpw.
  
      If you lose password or ip you could reset to the default password "password" and ip address "192.168.1.2"
      shorting defParamSwitch pin ad power on.
