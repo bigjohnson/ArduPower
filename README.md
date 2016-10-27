@@ -37,8 +37,8 @@ Tested with Arduino 1.6.9
   15. Reconnect to ArduPower with new tcp address.
   16. Change the password with command newpw.
  
-     If you lose password or ip you could reset to the default password "password" and ip address "192.168.1.2"
-     shorting defParamSwitch pin ad power on.
+ If you lose password or ip you could reset to the default password "password" and ip address "192.168.1.2"
+ shorting defParamSwitch pin ad power on.
  
  =====================================================================================
  
